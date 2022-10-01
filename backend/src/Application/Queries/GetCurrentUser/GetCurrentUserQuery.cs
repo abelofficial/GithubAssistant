@@ -1,11 +1,9 @@
-using System.Text.Json.Serialization;
+using Domain.Models;
+using MediatR;
 
-namespace Application.Queries
+namespace Application.Queries;
+
+public class GetCurrentUserQuery : IRequest<User>
 {
-
-    public class GetCurrentUserQuery
-    {
-        [JsonPropertyName("name")]
-        public string? Username { get; set; }
-    }
+    public string Username { get; set; }
 }

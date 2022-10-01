@@ -3,7 +3,7 @@
   "Transform": "AWS::Serverless-2016-10-31",
   "Description": "An AWS Serverless Application.",
   "Resources": {
-    "ApiUsersGetGenerated": {
+    "ApiEndpointsUsersEndpointGetGenerated": {
       "Type": "AWS::Serverless::Function",
       "Metadata": {
         "Tool": "Amazon.Lambda.Annotations",
@@ -20,7 +20,7 @@
           "AWSLambdaBasicExecutionRole"
         ],
         "PackageType": "Zip",
-        "Handler": "Api::Api.Users_Get_Generated::Get",
+        "Handler": "Api::Api.Endpoints.UsersEndpoint_Get_Generated::Get",
         "Events": {
           "RootGet": {
             "Type": "HttpApi",

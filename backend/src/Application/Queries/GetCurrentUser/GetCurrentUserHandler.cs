@@ -1,16 +1,16 @@
+using Domain.Models;
+using MediatR;
 
+namespace Application.Queries;
 
-namespace Application.Queries
+public class GetCurrentUserHandler : IRequestHandler<GetCurrentUserQuery, User>
 {
-    using System.Threading.Tasks;
-    using Domain;
-
-    public class GetCurrentUserHandler
+    public async Task<User> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
     {
-
-        public async Task<User> Handle(GetCurrentUserQuery request)
+        return await Task.FromResult(new User
         {
-            return await Task.FromResult(new User { Username = request.Username, Email = "" });
-        }
+            Username = request.Username,
+            Email = $"@test-email.com"
+        });
     }
 }
