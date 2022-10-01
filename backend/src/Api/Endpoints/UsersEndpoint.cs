@@ -1,7 +1,6 @@
 using Amazon.Lambda.Annotations;
 using Amazon.Lambda.Annotations.APIGateway;
 using Amazon.Lambda.Core;
-using Application.Contracts.Requests;
 using Application.Queries;
 using AutoMapper;
 using Domain.Models;
@@ -16,11 +15,19 @@ public class UsersEndpoint : BaseEndpoint
 
     [LambdaFunction()]
     [HttpApi(LambdaHttpMethod.Get, "/users")]
-    public async Task<User> Get([FromBody] GetCurrentUserDto dto, ILambdaContext context)
+    public async Task<User> Get([FromBody] GetCurrentUserQuery query, ILambdaContext context)
     {
-        var query = _mapper.Map<GetCurrentUserQuery>(dto);
-        context.Logger.LogInformation($"Request {dto.Username} mapped to {query.Username}");
-        return await _mediator.Send(query);
+        try
+        {
+            // var query = _mapper.Map<GetCurrentUserQuery>(dto);
+            context.Logger.LogInformation($"Request:  {query.Username}");
+            return await _mediator.Send(query);
+        }
+        catch (Exception e)
+        {
+            context.Logger.LogError(e.Message);
+            throw;
+        }
     }
 
 }
